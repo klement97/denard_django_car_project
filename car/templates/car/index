@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+    <form action="add_car/" method="POST" class="form-inline">
+        <h2 class="text-dark px-3">
+            <button type="submit" class="btn btn-lg btn-primary m-3">Add</button>
+            a new car
+        </h2>
+        {% csrf_token %}
+        {{ form.as_p }}
+
+    </form>
+    <ul class="list-group">
+        {% for c in car_list %}
+            <li class="list-group-item"><a class="px-2 text-primary" href="/{{ c.id }}/">{{ c.model }}</a>
+                <button type="submit" class="btn float-right btn-sm btn-danger">Delete</button>
+            </li>
+
+        {% endfor %}
+    </ul>
+{% endblock content %}
