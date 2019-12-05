@@ -1,18 +1,20 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <form action="new/" method="post">
+    <form action="/new/" method="post">
         {% csrf_token %}
         <button class="btn btn-lg btn-primary m-3">Add new</button>
     </form>
     <ul class="list-group">
         {% for c in car_list %}
             <li class="list-group-item"><a class="px-2 text-primary" href="/{{ c.id }}/">{{ c.model }}</a>
+
                 <form class="d-inline" action="delete_car/{{ c.id }}/" method="POST">
                     {% csrf_token %}
                     <button type="submit" class="btn float-right btn-sm btn-danger">Delete</button>
                 </form>
-                <form class="d-inline " action="edit_car/{{ c.id }}/" method="POST">
+
+                <form class="d-inline " action="edit/{{ c.id }}/" method="POST">
                     {% csrf_token %}
                     <button type="submit" class="btn mr-2 float-right btn-sm btn-outline-warning">Edit</button>
                 </form>

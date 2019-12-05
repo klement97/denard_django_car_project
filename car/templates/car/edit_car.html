@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <form action="new/" method="POST" class="form-inline">
+        <h2 class="text-dark px-3">
+            Edit car
+        </h2>
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-lg btn-primary m-3">Edit</button>
+    </form>
+{% endblock content %}
