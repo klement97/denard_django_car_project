@@ -3,10 +3,30 @@
 {% block content %}
     <form action="new/" method="POST" class="form-inline">
         <h2 class="text-dark px-3">Edit car</h2>
-        <br/>
+        <br>
         {% csrf_token %}
-        {{ form.as_p }}
-        <br/>
+        <div class="form-group">
+            <label class="col-sm-2 col-form-label" for="car-brand">Brand:</label>
+            <div class="col-sm-4">
+                <input type="text" name="car_brand" id="car-brand" maxlength="20" value="{{ brand }}" required/>
+            </div>
+        </div>
+        <br>
+        <div class="form-group">
+            <label class="col-sm-2 col-form-label" for="car-model">Model:</label>
+            <div class="col-sm-4">
+                <input type="text" name="car_model" id="car-model" maxlength="20" value="{{ model }}" required/>
+            </div>
+        </div>
+        <br>
+        <div class="form-group">
+            <label class="col-sm-2 col-form-label" for="car-year">Year:</label>
+            <div class="col-sm-4">
+                <input type="number" name="car_year" id="car-year" maxlength="4" value="{{ year }}" required/>
+            </div>
+        </div>
+        <br>
+
         <button type="submit" class="btn btn-lg btn-primary m-3">Edit</button>
     </form>
 {% endblock content %}

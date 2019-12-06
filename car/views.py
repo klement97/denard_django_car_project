@@ -41,29 +41,37 @@ def add_car(request):
         return HttpResponseRedirect("new/")
 
 
+def get_car(request, car_id):
+    car = Cars.objects.get(id=car_id)
+    context = {
+        'brand': car.brand,
+        'model': car.model,
+        'year': car.year
+    }
+    return render(request, "../templates/car/edit_car.html", context)
+
+
+def edit_car(request, car_id):
+    car = Cars.objects.get(id=car_id)
+    if request.method == "POST":
+        car.brand = request.POST.get("car_brand")
+        car.model = request.POST.get("car_model")
+        car.year = request.POST.get("car_year")
+        car.save()
+        return HttpResponseRedirect('/')
+    return HttpResponseRedirect('/')
+
+
+
+
+
+
+
+
 def delete_car(request, car_id):
     Cars.objects.get(id=car_id).delete()
     return HttpResponseRedirect("/")
 
 
-def get_car(request, car_id):
-    form = Add_New_Car(request.POST)
-    return render(request, "../templates/car/edit_car.html", {"form": form})
 
 
-def edit_car(request, car_id):
-    if request.method == "POST":
-        form = Add_New_Car(request.POST)
-        if form.is_valid():
-            brand = form.cleaned_data["brand"]
-            model = form.cleaned_data["model"]
-            year = form.cleaned_data["year"]
-            edited_car = Cars.objects.get(id=car_id)
-            edited_car.brand = brand
-            edited_car.model = model
-            edited_car.year = year
-
-            edited_car.save()
-            return HttpResponseRedirect("/")
-    else:
-        return HttpResponseRedirect("/new/")

@@ -4,7 +4,7 @@ from django.db import models
 class Cars(models.Model):
     model = models.CharField(max_length=20)
     brand = models.CharField(max_length=20)
-    year = models.IntegerField(default=None)
+    year = models.IntegerField()
 
     # Todo: add a color choice field
 
