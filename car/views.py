@@ -19,6 +19,7 @@ def details(request, car_id):
     }
     return render(request, "../templates/car/car_details.html", context)
 
+
 def new_car(request):
     form = Add_New_Car()
     return render(request, "../templates/car/new_car.html", {'form': form})
@@ -58,20 +59,9 @@ def edit_car(request, car_id):
         car.model = request.POST.get("car_model")
         car.year = request.POST.get("car_year")
         car.save()
-        return HttpResponseRedirect('/')
     return HttpResponseRedirect('/')
-
-
-
-
-
-
 
 
 def delete_car(request, car_id):
     Cars.objects.get(id=car_id).delete()
     return HttpResponseRedirect("/")
-
-
-
-
