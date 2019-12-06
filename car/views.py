@@ -1,19 +1,15 @@
 from django.shortcuts import HttpResponseRedirect
 from django.shortcuts import render
+from django.views.generic import (ListView)
 
 from car.models import Cars
 from .form import Add_New_Car
 
 
-def index(request):
-    car_list = Cars.objects.order_by('id')
-    return render(request, "../templates/car/index", {"car_list": car_list})
-
-
-'''class CarListView(View):
-    def show_list(self, request):
-        car_list = Cars.objects.order_by('brand')
-        return render(request, "../templates/car/index", {"car_list": car_list})'''
+class CarListView(ListView):
+    template_name = "car/index.html"
+    model = Cars
+    context_object_name = "car_list"
 
 
 def details(request, car_id):
@@ -24,6 +20,7 @@ def details(request, car_id):
         'year': car.year
     }
     return render(request, "../templates/car/car_details.html", context)
+
 
 
 def new_car(request):
@@ -38,7 +35,7 @@ def add_car(request):
             brand = form.cleaned_data["brand"]
             model = form.cleaned_data["model"]
             year = form.cleaned_data["year"]
-            created_car = Cars.objects.create(
+            Cars.objects.create(
                 brand=brand,
                 model=model,
                 year=year
