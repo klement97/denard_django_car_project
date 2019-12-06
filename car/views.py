@@ -6,8 +6,14 @@ from .form import Add_New_Car
 
 
 def index(request):
-    car_list = Cars.objects.order_by('brand')
-    return render(request, "../templates/car/index", {"car_list": car_list, })
+    car_list = Cars.objects.order_by('id')
+    return render(request, "../templates/car/index", {"car_list": car_list})
+
+
+'''class CarListView(View):
+    def show_list(self, request):
+        car_list = Cars.objects.order_by('brand')
+        return render(request, "../templates/car/index", {"car_list": car_list})'''
 
 
 def details(request, car_id):
