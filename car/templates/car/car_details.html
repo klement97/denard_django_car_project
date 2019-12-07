@@ -2,8 +2,8 @@
 
 {% block content %}
     <div class="container border border-primary">
-        <h2 class="text-center">Model: {{ model }}</h2>
-        <p class="border-top border-primary text-center">Brand: {{ brand }}</p>
-        <p class="border-top border-primary text-center">Produced in: {{ year }}</p>
+        <h2 class="text-center">Model: {{ object.model }}</h2>
+        <p class="border-top border-primary text-center">Brand: {{ object.brand }}</p>
+        <p class="border-top border-primary text-center">Produced in: {{ object.year }}</p>
     </div>
 {% endblock content %}

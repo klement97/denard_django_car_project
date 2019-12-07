@@ -1,10 +1,12 @@
-from django.shortcuts import HttpResponseRedirect
 from django.shortcuts import render
-from django.views.generic import (ListView)
+from django.urls import reverse_lazy
+from django.views.generic import (ListView, DeleteView, DetailView, UpdateView, CreateView)
 
 from car.models import Cars
-from .form import Add_New_Car
+from .form import EditCarForm, Add_New_Car
 
+
+# display cars in a list
 
 class CarListView(ListView):
     template_name = "car/index.html"
@@ -12,60 +14,41 @@ class CarListView(ListView):
     context_object_name = "car_list"
 
 
-def details(request, car_id):
-    car = Cars.objects.get(id=car_id)
-    context = {
-        'brand': car.brand,
-        'model': car.model,
-        'year': car.year
-    }
-    return render(request, "../templates/car/car_details.html", context)
+# display details of idividual car
+
+class CarDetails(DetailView):
+    model = Cars
+    template_name = "car/car_details.html"
+    pk_url_kwarg = 'car_id'
 
 
+# render the form to add a new car
 
 def new_car(request):
     form = Add_New_Car()
     return render(request, "../templates/car/new_car.html", {'form': form})
 
 
-def add_car(request):
-    if request.method == "POST":
-        form = Add_New_Car(request.POST)
-        if form.is_valid():
-            brand = form.cleaned_data["brand"]
-            model = form.cleaned_data["model"]
-            year = form.cleaned_data["year"]
-            Cars.objects.create(
-                brand=brand,
-                model=model,
-                year=year
-            )
-            return HttpResponseRedirect("/")
-    elif request.method == 'GET':
-        return HttpResponseRedirect("new/")
+# AddNewCar class
+
+class AddNewCar(CreateView):
+    model = Cars
+    fields = ['model', 'brand', 'year']
+    success_url = '/'
 
 
-def get_car(request, car_id):
-    car = Cars.objects.get(id=car_id)
-    context = {
-        'brand': car.brand,
-        'model': car.model,
-        'year': car.year
-    }
-
-    return render(request, "../templates/car/edit_car.html", context)
+# Delete car class
+class CarDelete(DeleteView):
+    model = Cars
+    pk_url_kwarg = 'car_id'
+    success_url = '/'
 
 
-def edit_car(request, car_id):
-    car = Cars.objects.get(id=car_id)
-    if request.method == "POST":
-        car.brand = request.POST.get("car_brand")
-        car.model = request.POST.get("car_model")
-        car.year = request.POST.get("car_year")
-        car.save()
-    return HttpResponseRedirect('/')
+# editing the car
+# CarEdit class is not finished
 
-
-def delete_car(request, car_id):
-    Cars.objects.get(id=car_id).delete()
-    return HttpResponseRedirect("/")
+class CarEdit(UpdateView):
+    model = Cars
+    form_class = EditCarForm
+    template_name = 'car/edit_car.html'
+    success_url = reverse_lazy('index')
