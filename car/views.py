@@ -52,6 +52,7 @@ def get_car(request, car_id):
         'model': car.model,
         'year': car.year
     }
+
     return render(request, "../templates/car/edit_car.html", context)
 
 
