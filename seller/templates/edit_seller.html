@@ -4,7 +4,7 @@
     <div class="ml-5 border-top">
         <form method="POST">
             {% csrf_token %}
-            {{ form }}
+            {{ form.as_table }}
             <br/>
             <button type="submit" class="btn btn-lg btn-outline-warning m-3">Edit</button>
         </form>

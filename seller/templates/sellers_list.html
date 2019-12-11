@@ -1,68 +1,65 @@
-{% extends "base.html" %}
+{% extends 'base.html' %}
 
-{% block content %}
+{% block sellers %}
     <ul class="nav nav-tabs">
         <li class="nav-item mt-1">
-            <a class="nav-link active" href="/"><h3>Cars</h3></a>
+            <a class="nav-link " href="/"><h3>Cars</h3></a>
         </li>
         <li class="nav-item mt-1">
-            <a class="nav-link  " href="/seller_list"><h3>Sellers</h3></a>
+            <a class="nav-link active " href="#"><h3>Sellers</h3></a>
         </li>
     </ul>
-
-    <form action="/new/" method="post">
+    <form action="/new_seller/" method="post">
         {% csrf_token %}
-        <button class="btn btn-lg btn-primary m-3">Add Car</button>
+        <button class="btn btn-lg btn-primary m-3">Add Seller</button>
     </form>
-
+    {#    <a href="{% url 'new-reseller' %}" class="btn btn-lg btn-primary">Add Seller</a>#}
     <table class="table table-hover">
         <thead>
         <tr>
-            <th scope="col">Brand</th>
-            <th scope="col">Model</th>
-            <th scope="col">Year</th>
-            <th scope="col">Seller</th>
+            <th scope="col">Company</th>
+            <th scope="col">Country</th>
+            <th scope="col">City</th>
             <th scope="col"></th>
             <th scope="col"></th>
             <th scope="col"></th>
         </tr>
         </thead>
-        {% if car_list %}
-            {% for c in car_list %}
+        {% if seller_list %}
+            {% for seller in seller_list %}
                 <tr>
-                    <th scope="row">{{ c.brand }}</th>
-                    <td>{{ c.model }}</td>
-                    <td>{{ c.year }}</td>
-                    <td><a href="seller{{ c.seller.id }}">{{ c.seller }}</a></td>
-                    <td><a class="btn mr-2 btn-sm btn-outline-primary" href="/{{ c.pk }}/">Display</a></td>
+                    <th scope="row">{{ seller.name }}</th>
+                    <td>{{ seller.country }}</td>
+                    <td>{{ seller.city }}</td>
+                    <td><a class="btn mr-2 btn-sm btn-outline-primary" href="/seller{{ seller.pk }}/">Info</a></td>
                     <td>
-                        <form class="d-inline " action="edit/{{ c.pk }}/" method="POST">
+                        <form class="d-inline " action="/edit_seller/{{ seller.pk }}/" method="POST">
                             {% csrf_token %}
                             <button type="submit" class="btn mr-2 btn-sm btn-outline-warning">Edit</button>
                         </form>
                     </td>
                     <td>
-                        <form class="d-inline" action="delete_car/{{ c.pk }}/" method="POST">
+                        <form class="d-inline" action="/delete_seller/{{ seller.pk }}" method="POST">
                             {% csrf_token %}
-                            <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+                            <button class="btn btn-sm btn-danger">Delete</button>
                         </form>
                     </td>
                 </tr>
             {% endfor %}
             {% if is_paginated %}
-
                 <nav aria-label="Page navigation example">
                     <ul class="pagination justify-content-end">
                         {% if page_obj.has_previous %}
                             <li class="page-item">
-                                <a class="page-link" href="{% url "index" %}?page={{ page_obj.previous_page_number }}">Previous</a>
+                                <a class="page-link"
+                                   href="{% url "seller_list" %}?page={{ page_obj.previous_page_number }}">Previous</a>
                             </li>
                         {% endif %}
                         <li class="page-item"><span class="page-link">{{ page_obj.number }}</span></li>
                         {% if page_obj.has_next %}
                             <li class="page-item">
                                 <a class="page-link"
-                                   href="{% url "index" %}?page={{ page_obj.next_page_number }}">Next</a>
+                                   href="{% url "seller_list" %}?page={{ page_obj.next_page_number }}">Next</a>
                             </li>
                         {% endif %}
                     </ul>
@@ -70,6 +67,5 @@
 
             {% endif %}
         {% endif %}
-
     </table>
-{% endblock content %}
+{% endblock sellers %}

@@ -3,7 +3,7 @@ from django.urls import reverse_lazy
 from django.views.generic import (ListView, DeleteView, DetailView, UpdateView, CreateView)
 
 from car.models import Cars
-from .form import EditCarForm, Add_New_Car
+from .form import EditCarForm
 
 
 # display cars in a list
@@ -12,20 +12,19 @@ class CarListView(ListView):
     template_name = "car/index.html"
     model = Cars
     context_object_name = "car_list"
-
+    paginate_by = 5
 
 # display details of idividual car
 
 class CarDetails(DetailView):
     model = Cars
     template_name = "car/car_details.html"
-    pk_url_kwarg = 'car_id'
 
 
 # render the form to add a new car
 
 def new_car(request):
-    form = Add_New_Car()
+    form = EditCarForm()
     return render(request, "../templates/car/new_car.html", {'form': form})
 
 
@@ -33,19 +32,19 @@ def new_car(request):
 
 class AddNewCar(CreateView):
     model = Cars
-    fields = ['model', 'brand', 'year']
+    fields = '__all__'
     success_url = '/'
 
 
 # Delete car class
 class CarDelete(DeleteView):
     model = Cars
-    pk_url_kwarg = 'car_id'
     success_url = '/'
 
 
 # editing the car
 # CarEdit class is not finished
+# todo: check for the outputs in the html
 
 class CarEdit(UpdateView):
     model = Cars

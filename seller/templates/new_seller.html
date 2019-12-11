@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <form action="add_seller/" method="POST" class="form-inline">
+        <h2 class="text-dark px-3">
+            Add new Seller
+        </h2>
+        {% csrf_token %}
+        {{ form.as_table }}
+        <button type="submit" class="btn btn-lg btn-primary m-3">Add</button>
+    </form>
+{% endblock content %}

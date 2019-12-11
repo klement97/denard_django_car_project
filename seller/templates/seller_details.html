@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="container border border-primary">
+        <h2 class="text-center">Company Name: {{ object.name }}</h2>
+        <p class="border-top border-primary text-center">Country: {{ object.country }}</p>
+        <p class="border-top border-primary text-center">City: {{ object.city }}</p>
+        <p class="border-top border-primary text-center">Address: {{ object.address }}</p>
+        <p class="border-top border-primary text-center">List of Cars that this company sells</p>
+    </div>
+{% endblock content %}
