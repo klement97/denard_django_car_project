@@ -14,6 +14,7 @@ class CarListView(ListView):
     context_object_name = "car_list"
     paginate_by = 5
 
+
 # display details of idividual car
 
 class CarDetails(DetailView):
