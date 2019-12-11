@@ -1,9 +1,9 @@
 from django import forms
 
-from .models import Cars
+from .models import Car
 
 
 class EditCarForm(forms.ModelForm):
     class Meta:
-        model = Cars
+        model = Car
         fields = '__all__'

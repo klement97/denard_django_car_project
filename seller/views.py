@@ -47,3 +47,4 @@ class EditSeller(UpdateView):
     form_class = EditSellers
     template_name = 'edit_seller.html'
     success_url = '/seller_list'
+    initial = {}

@@ -1,11 +1,16 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <div class="container border border-primary">
-        <h2 class="text-center">Company Name: {{ object.name }}</h2>
-        <p class="border-top border-primary text-center">Country: {{ object.country }}</p>
-        <p class="border-top border-primary text-center">City: {{ object.city }}</p>
-        <p class="border-top border-primary text-center">Address: {{ object.address }}</p>
-        <p class="border-top border-primary text-center">List of Cars that this company sells</p>
+    <div class="list-group">
+        <h2 class="text-center list-group-item list-group-item-action active">Company Name: {{ object.name }}</h2>
+        <p class="list-group-item list-group-item-action text-center">Country: {{ object.country }}</p>
+        <p class="list-group-item list-group-item-action text-center">City: {{ object.city }}</p>
+        <p class="list-group-item list-group-item-action text-center">Address: {{ object.address }}</p>
     </div>
+    <br>
+    <div class="text-center list-group">
+        <h4 class="list-group-item list-group-item-primary">List of Cars that this company sells</h4>
+        <a href="#" class="list-group-item list-group-item-action">Morbi leo risus</a>
+    </div>
+
 {% endblock content %}

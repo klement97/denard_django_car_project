@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views.generic import (ListView, DeleteView, DetailView, UpdateView, CreateView)
 
-from car.models import Cars
+from car.models import Car
 from .form import EditCarForm
 
 
@@ -10,14 +10,14 @@ from .form import EditCarForm
 
 class CarListView(ListView):
     template_name = "car/index.html"
-    model = Cars
+    model = Car
     context_object_name = "car_list"
     paginate_by = 5
 
 # display details of idividual car
 
 class CarDetails(DetailView):
-    model = Cars
+    model = Car
     template_name = "car/car_details.html"
 
 
@@ -31,14 +31,14 @@ def new_car(request):
 # AddNewCar class
 
 class AddNewCar(CreateView):
-    model = Cars
+    model = Car
     fields = '__all__'
     success_url = '/'
 
 
 # Delete car class
 class CarDelete(DeleteView):
-    model = Cars
+    model = Car
     success_url = '/'
 
 
@@ -47,7 +47,7 @@ class CarDelete(DeleteView):
 # todo: check for the outputs in the html
 
 class CarEdit(UpdateView):
-    model = Cars
+    model = Car
     form_class = EditCarForm
     template_name = 'car/edit_car.html'
     success_url = reverse_lazy('index')
