@@ -3,7 +3,18 @@
 {% block delete %}
     <div class="m-5 ">
         <form method="post">{% csrf_token %}
-            <h4 class="mb-2">Are you sure you want to delete "{{ object.name }}"?</h4>
+            {% if object.car_list.count > 0 %}
+                <h4 class="mb-2">If you delete "{{ object.name }}", all the cars following are going to be deleted:</h4>
+                <ul>
+                    {% for car in object.car_list.all %}
+                        <li class="text-danger">Brand: {{ car.brand }} --- Model: {{ car.model }}</li>
+                    {% endfor %}
+                </ul>
+                <h4 class="mb-2">Are you going to delete them?</h4>
+            {% else %}
+                <h4 class="mb-2">Are you going to delete {{ object.name }}</h4>
+            {% endif %}
+
             <input class="btn btn-danger m-2" type="submit" value="Confirm">
             <a href="{% url 'seller_list' %}" class="btn btn-primary  m-2">Cancel</a>
         </form>

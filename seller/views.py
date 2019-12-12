@@ -2,21 +2,21 @@ from django.shortcuts import render
 from django.views.generic import (ListView, DeleteView, DetailView, UpdateView, CreateView)
 
 from .form import EditSellers
-from .models import Sellers
+from .models import Seller
 
 
 # display cars in a list
 # view seller list
 class SellerListView(ListView):
     template_name = "sellers_list.html"
-    model = Sellers
+    model = Seller
     context_object_name = "seller_list"
     paginate_by = 5
 
 
 # seller details
 class SellerDetails(DetailView):
-    model = Sellers
+    model = Seller
     template_name = "seller_details.html"
 
 
@@ -28,7 +28,7 @@ def new_seller(request):
 
 
 class AddSeller(CreateView):
-    model = Sellers
+    model = Seller
     fields = ['name', 'country', 'city', 'address']
     success_url = "/seller_list"
 
@@ -36,7 +36,7 @@ class AddSeller(CreateView):
 # delete seller
 
 class DeleteSeller(DeleteView):
-    model = Sellers
+    model = Seller
     success_url = "/seller_list"
     template_name = 'seller_confirm_delete.html'
 
@@ -44,7 +44,7 @@ class DeleteSeller(DeleteView):
 # update seller
 
 class EditSeller(UpdateView):
-    model = Sellers
+    model = Seller
     form_class = EditSellers
     template_name = 'edit_seller.html'
     success_url = '/seller_list'

@@ -1,9 +1,9 @@
 from django import forms
 
-from .models import Sellers
+from .models import Seller
 
 
 class EditSellers(forms.ModelForm):
     class Meta:
-        model = Sellers
+        model = Seller
         fields = ['name', 'country', 'city', 'address']
