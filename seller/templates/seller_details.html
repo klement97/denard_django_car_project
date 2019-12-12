@@ -10,7 +10,9 @@
     <br>
     <div class="text-center list-group">
         <h4 class="list-group-item list-group-item-primary">List of Cars that this company sells</h4>
-        <a href="#" class="list-group-item list-group-item-action">Morbi leo risus</a>
+        {% for car in object.car_list.all %}
+            <a href="/{{ car.pk }}/" class="list-group-item list-group-item-action">{{ car }}</a>
+        {% endfor %}
     </div>
 
 {% endblock content %}
