@@ -33,19 +33,13 @@
                     <th scope="row">{{ c.brand }}</th>
                     <td>{{ c.model }}</td>
                     <td>{{ c.year }}</td>
-                    <td><a href="seller{{ c.seller.id }}">{{ c.seller }}</a></td>
+                    <td><a class="text-info" href="seller{{ c.seller.id }}">{{ c.seller }}</a></td>
                     <td><a class="btn mr-2 btn-sm btn-outline-primary" href="/{{ c.pk }}/">Display</a></td>
                     <td>
-                        <form class="d-inline " action="edit/{{ c.pk }}/" method="POST">
-                            {% csrf_token %}
-                            <button type="submit" class="btn mr-2 btn-sm btn-outline-warning">Edit</button>
-                        </form>
+                        <a href="edit/{{ c.pk }}/" class="btn mr-2 btn-sm btn-outline-warning">Edit</a>
                     </td>
                     <td>
-                        <form class="d-inline" action="delete_car/{{ c.pk }}/" method="POST">
-                            {% csrf_token %}
-                            <button type="submit" class="btn btn-sm btn-danger">Delete</button>
-                        </form>
+                        <a href="delete_car/{{ c.pk }}/" class="btn btn-sm btn-danger">Delete</a>
                     </td>
                 </tr>
             {% endfor %}

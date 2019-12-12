@@ -1,9 +1,12 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <div class="container border border-primary">
-        <h2 class="text-center">Model: {{ object.model }}</h2>
-        <p class="border-top border-primary text-center">Brand: {{ object.brand }}</p>
-        <p class="border-top border-primary text-center">Produced in: {{ object.year }}</p>
+    <div class="list-group">
+        <h2 class="text-center list-group-item list-group-item-action active">Model: {{ object.model }}</h2>
+        <h4 class="list-group-item list-group-item-action text-center">Brand: {{ object.brand }}</h4>
+        <h4 class="list-group-item list-group-item-action text-center">Produced in Year: {{ object.year }}</h4>
+        <h4 class="list-group-item list-group-item-action text-center">
+            <a href="/seller{{ car.seller.pk }}/" class="text-info">Seller: {{ object.seller }}</a>
+        </h4>
     </div>
 {% endblock content %}

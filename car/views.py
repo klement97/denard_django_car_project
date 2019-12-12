@@ -41,11 +41,10 @@ class AddNewCar(CreateView):
 class CarDelete(DeleteView):
     model = Car
     success_url = '/'
+    template_name = 'car/car_confirm_delete.html'
 
 
 # editing the car
-# CarEdit class is not finished
-# todo: check for the outputs in the html
 
 class CarEdit(UpdateView):
     model = Car

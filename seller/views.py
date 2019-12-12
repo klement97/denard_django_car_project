@@ -38,6 +38,7 @@ class AddSeller(CreateView):
 class DeleteSeller(DeleteView):
     model = Sellers
     success_url = "/seller_list"
+    template_name = 'seller_confirm_delete.html'
 
 
 # update seller

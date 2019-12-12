@@ -33,16 +33,10 @@
                     <td>{{ seller.city }}</td>
                     <td><a class="btn mr-2 btn-sm btn-outline-primary" href="/seller{{ seller.pk }}/">Info</a></td>
                     <td>
-                        <form class="d-inline " action="/edit_seller/{{ seller.pk }}/" method="POST">
-                            {% csrf_token %}
-                            <button type="submit" class="btn mr-2 btn-sm btn-outline-warning">Edit</button>
-                        </form>
+                        <a href="/edit_seller/{{ seller.pk }}/" class="btn mr-2 btn-sm btn-outline-warning">Edit</a>
                     </td>
                     <td>
-                        <form class="d-inline" action="/delete_seller/{{ seller.pk }}" method="POST">
-                            {% csrf_token %}
-                            <button class="btn btn-sm btn-danger">Delete</button>
-                        </form>
+                        <a href="/delete_seller/{{ seller.pk }}" class="btn btn-sm btn-danger">Delete</a>
                     </td>
                 </tr>
             {% endfor %}

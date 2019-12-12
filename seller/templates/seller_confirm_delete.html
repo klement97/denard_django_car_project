@@ -3,9 +3,9 @@
 {% block delete %}
     <div class="m-5 ">
         <form method="post">{% csrf_token %}
-            <h4 class="mb-2">Are you sure you want to delete "{{ object.brand }}, {{ object.model }}"?</h4>
+            <h4 class="mb-2">Are you sure you want to delete "{{ object.name }}"?</h4>
             <input class="btn btn-danger m-2" type="submit" value="Confirm">
-            <a href="/" class="btn btn-primary  m-2">Cancel</a>
+            <a href="{% url 'seller_list' %}" class="btn btn-primary  m-2">Cancel</a>
         </form>
     </div>
 {% endblock %}
