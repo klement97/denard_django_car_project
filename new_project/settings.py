@@ -21,6 +21,8 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = '9%pv7hw(8$!x5azzbis@(-v!8sr2o(22ia&i)7v_eht%b$x6t)'
 
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
@@ -40,6 +42,7 @@ INSTALLED_APPS = [
 
     'car',
     'seller',
+    'register',
 ]
 
 MIDDLEWARE = [
@@ -120,3 +123,6 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
+LOGIN_REDIRECT_URL = '/car_list'
+LOGOUT_REDIRECT_URL = '/'

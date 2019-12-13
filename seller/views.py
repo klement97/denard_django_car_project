@@ -1,3 +1,5 @@
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render
 from django.views.generic import (ListView, DeleteView, DetailView, UpdateView, CreateView)
 
@@ -7,44 +9,52 @@ from .models import Seller
 
 # display cars in a list
 # view seller list
-class SellerListView(ListView):
+class SellerListView(LoginRequiredMixin, ListView):
     template_name = "sellers_list.html"
     model = Seller
     context_object_name = "seller_list"
     paginate_by = 5
+    login_url = '/accounts/login/'
+    redirect_field_name = 'redirect_to'
 
 
 # seller details
-class SellerDetails(DetailView):
+class SellerDetails(LoginRequiredMixin, DetailView):
     model = Seller
     template_name = "seller_details.html"
-
+    login_url = '/accounts/login/'
+    redirect_field_name = 'redirect_to'
 
 # add new seller
-
+@login_required(login_url='/accounts/login/')
 def new_seller(request):
     form = EditSellers()
     return render(request, "../templates/new_seller.html", {'form': form})
 
 
-class AddSeller(CreateView):
+class AddSeller(LoginRequiredMixin, CreateView):
     model = Seller
     fields = ['name', 'country', 'city', 'address']
     success_url = "/seller_list"
+    login_url = '/accounts/login/'
+    redirect_field_name = 'redirect_to'
 
 
 # delete seller
 
-class DeleteSeller(DeleteView):
+class DeleteSeller(LoginRequiredMixin, DeleteView):
     model = Seller
     success_url = "/seller_list"
     template_name = 'seller_confirm_delete.html'
-
+    login_url = '/accounts/login/'
+    redirect_field_name = 'redirect_to'
 
 # update seller
 
-class EditSeller(UpdateView):
+class EditSeller(LoginRequiredMixin, UpdateView):
     model = Seller
     form_class = EditSellers
     template_name = 'edit_seller.html'
     success_url = '/seller_list'
+    login_url = '/accounts/login/'
+    redirect_field_name = 'redirect_to'

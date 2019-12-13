@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 
-{% block delete %}
+{% block content %}
     <div class="m-5 ">
         <form method="post">{% csrf_token %}
             <h4 class="mb-2">Are you sure you want to delete "{{ object.brand }}, {{ object.model }}"?</h4>

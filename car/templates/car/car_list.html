@@ -3,14 +3,14 @@
 {% block content %}
     <ul class="nav nav-tabs">
         <li class="nav-item mt-1">
-            <a class="nav-link active" href="/"><h3>Cars</h3></a>
+            <a class="nav-link active" href="#"><h3>Cars</h3></a>
         </li>
         <li class="nav-item mt-1">
             <a class="nav-link  " href="/seller_list"><h3>Sellers</h3></a>
         </li>
     </ul>
 
-    <form action="/new/" method="post">
+    <form action="/car_list/new/" method="post">
         {% csrf_token %}
         <button class="btn btn-lg btn-primary m-3">Add Car</button>
     </form>
@@ -33,7 +33,7 @@
                     <th scope="row">{{ c.brand }}</th>
                     <td>{{ c.model }}</td>
                     <td>{{ c.year }}</td>
-                    <td><a class="text-info" href="seller{{ c.seller.id }}">{{ c.seller }}</a></td>
+                    <td><a class="text-info" href="/seller{{ c.seller.id }}">{{ c.seller }}</a></td>
                     <td><a class="btn mr-2 btn-sm btn-outline-primary" href="/{{ c.pk }}/">Display</a></td>
                     <td>
                         <a href="edit/{{ c.pk }}/" class="btn mr-2 btn-sm btn-outline-warning">Edit</a>
