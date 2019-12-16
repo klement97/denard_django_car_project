@@ -10,10 +10,7 @@
         </li>
     </ul>
 
-    <form action="/car_list/new/" method="post">
-        {% csrf_token %}
-        <button class="btn btn-lg btn-primary m-3">Add Car</button>
-    </form>
+    <a href="{% url 'new' %}" class="btn btn-lg btn-primary m-3">Add Car</a>
 
     <table class="table table-hover">
         <thead>

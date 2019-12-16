@@ -20,7 +20,6 @@ class CarListView(LoginRequiredMixin, ListView):
     redirect_field_name = 'redirect'
 
 
-
 # display details of idividual car
 
 class CarDetails(LoginRequiredMixin, DetailView):
@@ -29,11 +28,12 @@ class CarDetails(LoginRequiredMixin, DetailView):
     login_url = '/accounts/login/'
     redirect_field_name = 'redirect'
 
+
 # render the form to add a new car
 @login_required(login_url='/accounts/login/')
 def new_car(request):
     form = EditCarForm()
-    return render(request, "../templates/car/new_car.html", {'form': form})
+    return render(request, "../templates/car/new_car.html", {'form': form}, status=201)
 
 
 # AddNewCar class
@@ -41,9 +41,11 @@ def new_car(request):
 class AddNewCar(LoginRequiredMixin, CreateView):
     model = Car
     fields = '__all__'
+    template_name = 'car/edit_car.html'
     success_url = reverse_lazy('car_list')
-    login_url = '/accounts/login/'
+    # login_url = '/accounts/login/'
     redirect_field_name = 'redirect_to'
+
 
 # Delete car class
 class CarDelete(LoginRequiredMixin, DeleteView):
