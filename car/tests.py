@@ -36,11 +36,11 @@ class CarTest(TestCase):
         }
         response = self.client.get(url)
         self.assertEquals(response.status_code, 200)
+        count = Car.objects.count()
         self.client.post(url, form)
-        Car.objects.last().refresh_from_db()
         self.assertEqual(Car.objects.last().brand, form['brand'])
         self.assertEqual(Car.objects.filter(brand='Opel').count(), 1)
-
+        self.assertEqual(Car.objects.count(), count + 1)
     def test_delete(self):
         url = reverse('delete_car', kwargs={
             'pk': self.car.pk
