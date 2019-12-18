@@ -43,7 +43,6 @@ class AddNewCar(LoginRequiredMixin, CreateView):
     fields = '__all__'
     template_name = 'car/edit_car.html'
     success_url = reverse_lazy('car_list')
-    # login_url = '/accounts/login/'
     redirect_field_name = 'redirect_to'
 
 

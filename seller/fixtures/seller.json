@@ -1,0 +1,12 @@
+[
+  {
+    "model": "seller.seller",
+    "pk": 1,
+    "fields": {
+      "name": "klement",
+      "country": "albania",
+      "city": "tirana",
+      "address": "tirana"
+    }
+  }
+]

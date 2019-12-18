@@ -13,7 +13,7 @@
 </head>
 <body>
 {% if user.is_authenticated %}
-    <div class="d-flex justify-content-end">
+    <div class="d-flex justify-content-end my-3 mx-2">
         <span class="m-2 p-1">Hi {{ user.username }}</span>
         {% if user.is_authenticated %}
             <span class="m-1 p-1"><a class="btn btn-outline-warning btn-sm" href="/accounts/password_change/">change password</a></span>
@@ -22,7 +22,7 @@
     </div>
 
 {% else %}
-    <div class="d-flex justify-content-end">
+    <div class="d-flex justify-content-end my-3 mx-2">
         <span class="m-2 p-1">You are not logged in.</span>
         <span class="m-1 p-1"><a class="btn btn-outline-primary btn-sm" href="{% url 'login' %}">login</a></span>
         <span class="m-1 p-1"><a class="btn btn-outline-info btn-sm" href="{% url 'signup' %}">signup</a></span>

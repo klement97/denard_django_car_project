@@ -1,14 +1,17 @@
 {% extends 'base.html' %}
 {% load crispy_forms_tags %}
 {% block content %}
+    <div style="height: 15vh"></div>
+    <div style="width: 300px" class="mx-auto">
+        <form class="mx-auto mt-5 " method="post">{% csrf_token %}
+            <div class="mx-auto mt-5  border  p-3 shadow p-3 mb-5 bg-white rounded">
+                <h2 class="text-center mb-4 border-bottom pb-2">Login</h2>
+                {{ form | crispy }}
+                <button class="btn btn-primary" type="submit">Login</button>
+                <a href="/accounts/password_reset/" class="btn btn-warning btn-sm">Forgot password</a>
+            </div>
+        </form>
+    </div>
 
-    <form class="mx-auto mt-4 col-md-5" method="post">{% csrf_token %}
-        <div class="mx-auto mt-5 col-4 border  p-3 shadow p-3 mb-5 bg-white rounded">
-            <h2 class="text-center mb-4 border-bottom pb-2">Login</h2>
-            {{ form | crispy }}
-            <button class="btn btn-primary" type="submit">Login</button>
-            <a href="/accounts/password_reset/" class="btn btn-warning btn-sm">Forgot password</a>
-        </div>
-    </form>
 
 {% endblock content %}

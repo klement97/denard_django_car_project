@@ -6,7 +6,7 @@
         <h4 class="list-group-item list-group-item-action text-center">Brand: {{ object.brand }}</h4>
         <h4 class="list-group-item list-group-item-action text-center">Produced in Year: {{ object.year }}</h4>
         <h4 class="list-group-item list-group-item-action text-center">
-            <a href="/seller{{ car.seller.pk }}/" class="text-info">Seller: {{ object.seller }}</a>
+            <a href="/seller/{{ car.seller.pk }}/" class="text-info">Seller: {{ object.seller }}</a>
         </h4>
     </div>
 {% endblock content %}

@@ -1,6 +1,5 @@
-from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.shortcuts import render
+from django.urls import reverse_lazy
 from django.views.generic import (ListView, DeleteView, DetailView, UpdateView, CreateView)
 
 from .form import EditSellers
@@ -26,17 +25,11 @@ class SellerDetails(LoginRequiredMixin, DetailView):
     redirect_field_name = 'redirect_to'
 
 # add new seller
-@login_required(login_url='/accounts/login/')
-def new_seller(request):
-    form = EditSellers()
-    return render(request, "../templates/new_seller.html", {'form': form})
-
-
 class AddSeller(LoginRequiredMixin, CreateView):
     model = Seller
-    fields = ['name', 'country', 'city', 'address']
-    success_url = "/seller_list"
-    login_url = '/accounts/login/'
+    fields = '__all__'
+    template_name = 'new_seller.html'
+    success_url = reverse_lazy('seller_list')
     redirect_field_name = 'redirect_to'
 
 

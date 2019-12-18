@@ -9,10 +9,9 @@
             <a class="nav-link active " href="#"><h3>Sellers</h3></a>
         </li>
     </ul>
-    <form action="/new_seller/" method="post">
-        {% csrf_token %}
-        <button class="btn btn-lg btn-primary m-3">Add Seller</button>
-    </form>
+
+    <a href="{% url 'add_seller' %}" class="btn btn-lg btn-primary m-3">Add Seller</a>
+
     {#    <a href="{% url 'new-reseller' %}" class="btn btn-lg btn-primary">Add Seller</a>#}
     <table class="table table-hover">
         <thead>
@@ -31,7 +30,7 @@
                     <th scope="row">{{ seller.name }}</th>
                     <td>{{ seller.country }}</td>
                     <td>{{ seller.city }}</td>
-                    <td><a class="btn mr-2 btn-sm btn-outline-primary" href="/seller{{ seller.pk }}/">Info</a></td>
+                    <td><a class="btn mr-2 btn-sm btn-outline-primary" href="/seller/{{ seller.pk }}/">Info</a></td>
                     <td>
                         <a href="/edit_seller/{{ seller.pk }}/" class="btn mr-2 btn-sm btn-outline-warning">Edit</a>
                     </td>
