@@ -37,7 +37,7 @@ class AddSeller(LoginRequiredMixin, CreateView):
 
 class DeleteSeller(LoginRequiredMixin, DeleteView):
     model = Seller
-    success_url = "/seller_list"
+    success_url = "/seller_list/"
     template_name = 'seller_confirm_delete.html'
     login_url = '/accounts/login/'
     redirect_field_name = 'redirect_to'

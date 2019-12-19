@@ -1,7 +1,5 @@
-from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpResponseRedirect
-from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views.generic import (ListView, DeleteView, DetailView, UpdateView, CreateView)
 
@@ -28,16 +26,7 @@ class CarDetails(LoginRequiredMixin, DetailView):
     login_url = '/accounts/login/'
     redirect_field_name = 'redirect'
 
-
-# render the form to add a new car
-@login_required(login_url='/accounts/login/')
-def new_car(request):
-    form = EditCarForm()
-    return render(request, "../templates/car/new_car.html", {'form': form}, status=201)
-
-
 # AddNewCar class
-
 class AddNewCar(LoginRequiredMixin, CreateView):
     model = Car
     fields = '__all__'
