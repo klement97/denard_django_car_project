@@ -150,3 +150,4 @@ class CarTest(TestCase):
         # Confirm that the success url is right
         success_url = response.context_data['view'].success_url
         self.assertEquals(success_url, '/car_list/')
+        self.assertTemplateUsed(response, 'car/edit_car.html')
