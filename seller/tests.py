@@ -32,13 +32,16 @@ class SellerTest(TestCase):
         """
         url = reverse('seller_list')
         response = self.client.get(url)
+
+        # Confirm we get a response
         self.assertEquals(response.status_code, 200)
 
+        # Confirm that the pagination by 5 works
         context_data = response.context_data
         list = len(context_data['page_obj'].object_list)
         self.assertLessEqual(list, 5)
 
-        # comparing the query sets
+        # Confirm we get the right objects rendered
         seller = Seller.objects.all()
         object_list = context_data['object_list']
         self.assertEquals(seller.query, object_list.query)
@@ -56,22 +59,29 @@ class SellerTest(TestCase):
             'city': 'some city',
             'address': 'some address'
         }
+
         response = self.client.get(url)
+        # Confirm we get a response back
         self.assertEquals(response.status_code, 200)
 
+        # Confirm that the view gives all the fields from the model to fill in
         view_fields = response.context_data['view'].fields
         self.assertEquals(view_fields, '__all__')
 
+        # Confirm that the form is rendered from the Car model
         seller_model_form = response.context_data['form'].Meta.model
         self.assertEquals(seller_model_form, Seller)
 
+        # Confirm that the new object is created
         count = Seller.objects.count()
         self.client.post(url, form)
         self.assertEqual(Seller.objects.last().name, form['name'])
         self.assertEqual(Seller.objects.filter(name='TestName').count(), 1)
         self.assertEqual(Seller.objects.count(), count + 1)
 
+        # Confirm that the view renders in  the right template
         success_url = response.context_data['view'].success_url
+        self.assertTemplateUsed(response, 'new_seller.html')
         self.assertEquals(success_url, '/seller_list/')
 
     def test_seller_delete(self):
@@ -104,16 +114,20 @@ class SellerTest(TestCase):
         })
 
         response = self.client.get(url)
-        # confirm that we get data
+
+        # Confirm that we get data
         self.assertEquals(response.status_code, 200)
 
-        # confirm we get back the right form
+        # Confirm we get back the right form
         form = response.context_data['form']
         original_form = EditSellers()
         self.assertEqual(len(form.fields), len(original_form.fields))
         self.assertEquals(form.Meta, original_form.Meta)
         self.assertEquals(form.base_fields, original_form.base_fields)
 
+        self.assertIsInstance(form, EditSellers)
+
+        seller1 = response.context_data['object']
         form = {
             'name': 'TestName',
             'country': 'some land',
@@ -121,9 +135,16 @@ class SellerTest(TestCase):
             'address': 'some address'
         }
         self.client.post(url, form)
-        # confirm that the brand of the car si updated
+
+        # Confirm that the object is updated
+        response2 = self.client.get(url)
+        updated_seller = response2.context_data['object']
+        self.assertIsNot(seller1, updated_seller)
+
+        # Confirm that the brand of the car si updated
         seller_name = Seller.objects.filter(name='TestName')[0].name
         self.assertEqual(seller_name, form['name'])
-        # confirm that the success url is right
+
+        # Confirm that the success url is right
         success_url = response.context_data['view'].success_url
         self.assertEquals(success_url, '/seller_list')

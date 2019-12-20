@@ -30,7 +30,7 @@ class CarDetails(LoginRequiredMixin, DetailView):
 class AddNewCar(LoginRequiredMixin, CreateView):
     model = Car
     fields = '__all__'
-    template_name = 'car/edit_car.html'
+    template_name = 'car/new_car.html'
     success_url = reverse_lazy('car_list')
     redirect_field_name = 'redirect_to'
 

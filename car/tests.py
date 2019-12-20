@@ -30,18 +30,23 @@ class CarTest(TestCase):
              Ensure that the pagination works.
         """
         url = reverse('car_list')
+        # Confirm that we get a response back
         response = self.client.get(url)
         self.assertEquals(response.status_code, 200)
 
+        # Confirm that the pagination by 5 works
         context_data = response.context_data
         list = len(context_data['page_obj'].object_list)
         self.assertLessEqual(list, 5)
 
-        # comparing the query sets
+        # Confimr that the objets that are rendered are the right ones
         cars = Car.objects.all()
         object_list = context_data['object_list']
         self.assertEquals(cars.query, object_list.query)
+
+        # Confirm that the view renderes in the right template
         self.assertTemplateUsed(response, 'car/car_list.html')
+
     def test_car_create(self):
         """
             Ensure we get the right model form to create the car.
@@ -56,23 +61,30 @@ class CarTest(TestCase):
             'seller': 2
         }
         response = self.client.get(url)
+
+        # Confirm we get a response back
         self.assertEquals(response.status_code, 200)
 
-        view_fields = response.context_data['view'].fields
-        self.assertEquals(view_fields, '__all__')
-
+        # Confirm that the form is rendered from the Car model
         car_model_form = response.context_data['form'].Meta.model
         self.assertEquals(car_model_form, Car)
 
+        # Confirm that the view gives all the fields from the model to fill in
+        view_fields = response.context_data['view'].fields
+        self.assertEquals(view_fields, '__all__')
+
+        # Confirm that the new object is created
         count = Car.objects.count()
         self.client.post(url, form)
         self.assertEqual(Car.objects.last().brand, form['brand'])
         self.assertEqual(Car.objects.filter(brand='Opel').count(), 1)
         self.assertEqual(Car.objects.count(), count + 1)
 
+        # Confirm that the view renders in  the right template
         success_url = response.context_data['view'].success_url
+        self.assertTemplateUsed(response, 'car/edit_car.html')
         self.assertEquals(success_url, '/car_list/')
-        self.assertTemplateUsed(response, 'car/car_list.html')
+
 
     def test_delete(self):
         """
@@ -105,16 +117,19 @@ class CarTest(TestCase):
         })
         response = self.client.get(url)
 
-        # confirm that we get data back
+        # Confirm that we get data back
         self.assertEquals(response.status_code, 200)
 
-        # confirm we get back the right form
+        # Confirm we get back the right form
         form = response.context_data['form']
         original_form = EditCarForm()
         self.assertEqual(len(form.fields), len(original_form.fields))
         self.assertEquals(form.Meta, original_form.Meta)
         self.assertEquals(form.base_fields, original_form.base_fields)
 
+        self.assertIsInstance(form, EditCarForm)
+
+        car1 = response.context_data['object']
         form = {
             'brand': 'Test',
             'model': 'Test',
@@ -122,9 +137,16 @@ class CarTest(TestCase):
             'seller': 2
         }
         self.client.post(url, form)
-        # confirm that the brand of the car si updated
+
+        # Confirm that the object is updated
+        response2 = self.client.get(url)
+        updated_car = response2.context_data['object']
+        self.assertIsNot(car1, updated_car)
+
+        # Confirm that the brand of the car si updated
         car_brand = Car.objects.filter(brand='Test')[0].brand
         self.assertEqual(car_brand, form['brand'])
-        # confirm that the success url is right
+
+        # Confirm that the success url is right
         success_url = response.context_data['view'].success_url
         self.assertEquals(success_url, '/car_list/')
