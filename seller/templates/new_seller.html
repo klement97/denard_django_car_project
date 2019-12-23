@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block title %}
+    Create Seller
+{% endblock %}
+{% load crispy_forms_tags %}
+{% block content %}
+    <div style="height: 10vh"></div>
+    <div style="width: 300px" class="mx-auto">
+        <form method="POST" class="mx-auto">
+            <h2 class="text-dark border-bottom text-center m-4">
+                Add new Seller
+            </h2>
+            {% csrf_token %}
+            {{ form | crispy }}
+            <button type="submit" class="btn btn-lg btn-primary m-3">Add</button>
+        </form>
+    </div>
+
+{% endblock content %}

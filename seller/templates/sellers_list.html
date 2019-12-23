@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <ul class="nav nav-tabs">
+        <li class="nav-item mt-1">
+            <a class="nav-link " href="{% url 'car_list' %}"><h3>Cars</h3></a>
+        </li>
+        <li class="nav-item mt-1">
+            <a class="nav-link active " href="#"><h3>Sellers</h3></a>
+        </li>
+    </ul>
+
+    <a href="{% url 'add_seller' %}" class="btn btn-lg btn-primary m-3">Add Seller</a>
+
+    {#    <a href="{% url 'new-reseller' %}" class="btn btn-lg btn-primary">Add Seller</a>#}
+    <table class="table table-hover">
+        <thead>
+        <tr>
+            <th scope="col">Company</th>
+            <th scope="col">Country</th>
+            <th scope="col">City</th>
+            <th scope="col"></th>
+            <th scope="col"></th>
+            <th scope="col"></th>
+        </tr>
+        </thead>
+        {% if seller_list %}
+            {% for seller in seller_list %}
+                <tr>
+                    <th scope="row">{{ seller.name }}</th>
+                    <td>{{ seller.country }}</td>
+                    <td>{{ seller.city }}</td>
+                    <td><a class="btn mr-2 btn-sm btn-outline-primary" href="/seller/{{ seller.pk }}/">Info</a></td>
+                    <td>
+                        <a href="/edit_seller/{{ seller.pk }}/" class="btn mr-2 btn-sm btn-outline-warning">Edit</a>
+                    </td>
+                    <td>
+                        <a href="/delete_seller/{{ seller.pk }}" class="btn btn-sm btn-danger">Delete</a>
+                    </td>
+                </tr>
+            {% endfor %}
+            {% if is_paginated %}
+                <nav aria-label="Page navigation example">
+                    <ul class="pagination justify-content-end">
+                        {% if page_obj.has_previous %}
+                            <li class="page-item">
+                                <a class="page-link"
+                                   href="{% url "seller_list" %}?page={{ page_obj.previous_page_number }}">Previous</a>
+                            </li>
+                        {% endif %}
+                        <li class="page-item"><span class="page-link">{{ page_obj.number }}</span></li>
+                        {% if page_obj.has_next %}
+                            <li class="page-item">
+                                <a class="page-link"
+                                   href="{% url "seller_list" %}?page={{ page_obj.next_page_number }}">Next</a>
+                            </li>
+                        {% endif %}
+                    </ul>
+                </nav>
+
+            {% endif %}
+        {% endif %}
+    </table>
+{% endblock content %}

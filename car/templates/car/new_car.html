@@ -1,12 +1,18 @@
 {% extends "base.html" %}
-
+{% load crispy_forms_tags %}
 {% block content %}
-    <form action="add/" method="POST" class="form-inline">
-        <h2 class="text-dark px-3">
-            Add new car
-        </h2>
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit" class="btn btn-lg btn-primary m-3">Add</button>
-    </form>
+    <div style="height: 10vh"></div>
+    <div style="width: 300px" class="mx-auto">
+        <form class="mx-auto p-3" method="POST">
+            <div>
+                <h2 class="text-dark border-bottom text-center m-4">
+                    Add New Car
+                </h2>
+                {% csrf_token %}
+                {{ form | crispy }}
+                <button type="submit" class="btn btn-lg btn-outline-warning m-3">Edit</button>
+            </div>
+        </form>
+    </div>
+
 {% endblock content %}

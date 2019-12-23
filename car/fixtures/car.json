@@ -1,0 +1,42 @@
+[
+  {
+    "model": "car.car",
+    "pk": 5,
+    "fields": {
+      "model": "Elantra",
+      "brand": "Hyunday",
+      "year": 2,
+      "seller": 1
+    }
+  },
+  {
+    "model": "car.car",
+    "pk": 6,
+    "fields": {
+      "model": "s320",
+      "brand": "mercedez",
+      "year": 2,
+      "seller": 1
+    }
+  },
+  {
+    "model": "car.car",
+    "pk": 7,
+    "fields": {
+      "model": "Elantra",
+      "brand": "Hyunday",
+      "year": 2019,
+      "seller": 1
+    }
+  },
+  {
+    "model": "car.car",
+    "pk": 8,
+    "fields": {
+      "model": "s200",
+      "brand": "mercedez",
+      "year": 13123,
+      "seller": 1
+    }
+  }
+]

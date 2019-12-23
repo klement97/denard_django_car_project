@@ -1,71 +1,60 @@
-from django.shortcuts import HttpResponseRedirect
-from django.shortcuts import render
-from django.views.generic import (ListView)
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.http import HttpResponseRedirect
+from django.urls import reverse_lazy
+from django.views.generic import (ListView, DeleteView, DetailView, UpdateView, CreateView)
 
-from car.models import Cars
-from .form import Add_New_Car
+from car.models import Car
+from .form import EditCarForm
 
 
-class CarListView(ListView):
-    template_name = "car/index.html"
-    model = Cars
+# display cars in a list
+
+class CarListView(LoginRequiredMixin, ListView):
+    template_name = "car/car_list.html"
+    model = Car
     context_object_name = "car_list"
+    paginate_by = 5
+    login_url = '/accounts/login/'
+    redirect_field_name = 'redirect'
 
 
-def details(request, car_id):
-    car = Cars.objects.get(id=car_id)
-    context = {
-        'brand': car.brand,
-        'model': car.model,
-        'year': car.year
-    }
-    return render(request, "../templates/car/car_details.html", context)
+# display details of idividual car
+
+class CarDetails(LoginRequiredMixin, DetailView):
+    model = Car
+    template_name = "car/car_details.html"
+    login_url = '/accounts/login/'
+    redirect_field_name = 'redirect'
 
 
-
-def new_car(request):
-    form = Add_New_Car()
-    return render(request, "../templates/car/new_car.html", {'form': form})
-
-
-def add_car(request):
-    if request.method == "POST":
-        form = Add_New_Car(request.POST)
-        if form.is_valid():
-            brand = form.cleaned_data["brand"]
-            model = form.cleaned_data["model"]
-            year = form.cleaned_data["year"]
-            Cars.objects.create(
-                brand=brand,
-                model=model,
-                year=year
-            )
-            return HttpResponseRedirect("/")
-    elif request.method == 'GET':
-        return HttpResponseRedirect("new/")
+# AddNewCar class
+class AddNewCar(LoginRequiredMixin, CreateView):
+    model = Car
+    fields = '__all__'
+    template_name = 'car/new_car.html'
+    success_url = reverse_lazy('car_list')
+    redirect_field_name = 'redirect_to'
 
 
-def get_car(request, car_id):
-    car = Cars.objects.get(id=car_id)
-    context = {
-        'brand': car.brand,
-        'model': car.model,
-        'year': car.year
-    }
-
-    return render(request, "../templates/car/edit_car.html", context)
+# Delete car class
+class CarDelete(LoginRequiredMixin, DeleteView):
+    model = Car
+    success_url = reverse_lazy('car_list')
+    template_name = 'car/car_confirm_delete.html'
+    login_url = '/accounts/login/'
+    redirect_field_name = 'redirect_to'
 
 
-def edit_car(request, car_id):
-    car = Cars.objects.get(id=car_id)
-    if request.method == "POST":
-        car.brand = request.POST.get("car_brand")
-        car.model = request.POST.get("car_model")
-        car.year = request.POST.get("car_year")
-        car.save()
-    return HttpResponseRedirect('/')
+# editing the car
+
+class CarEdit(LoginRequiredMixin, UpdateView):
+    model = Car
+    form_class = EditCarForm
+    template_name = 'car/edit_car.html'
+    success_url = reverse_lazy('car_list')
+    login_url = '/accounts/login/'
+    redirect_field_name = 'redirect_to'
 
 
-def delete_car(request, car_id):
-    Cars.objects.get(id=car_id).delete()
-    return HttpResponseRedirect("/")
+def redirect(request):
+    return HttpResponseRedirect('/accounts/login/')

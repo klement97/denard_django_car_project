@@ -16,7 +16,13 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
+from car.views import redirect
+
 urlpatterns = [
     path('', include("car.urls")),
+    path('', include("seller.urls")),
     path('admin/', admin.site.urls),
+    path('', redirect, name='redirect'),
+    path('accounts/', include('django.contrib.auth.urls')),
+    path('signup/', include('register.urls'))
 ]
