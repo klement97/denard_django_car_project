@@ -8,11 +8,11 @@
                 <h2 class="text-dark border-bottom text-center m-4">
                     Edit Car
                 </h2>
-            {% csrf_token %}
-            {{ form | crispy }}
-            <button type="submit" class="btn btn-lg btn-outline-warning m-3">Edit</button>
-        </div>
-    </form>
+                {% csrf_token %}
+                {{ form | crispy }}
+                <button type="submit" class="btn btn-lg btn-outline-warning m-3">Edit</button>
+            </div>
+        </form>
     </div>
 
 {% endblock content %}

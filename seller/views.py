@@ -24,6 +24,7 @@ class SellerDetails(LoginRequiredMixin, DetailView):
     login_url = '/accounts/login/'
     redirect_field_name = 'redirect_to'
 
+
 # add new seller
 class AddSeller(LoginRequiredMixin, CreateView):
     model = Seller
@@ -41,6 +42,7 @@ class DeleteSeller(LoginRequiredMixin, DeleteView):
     template_name = 'seller_confirm_delete.html'
     login_url = '/accounts/login/'
     redirect_field_name = 'redirect_to'
+
 
 # update seller
 

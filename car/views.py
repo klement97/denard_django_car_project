@@ -26,6 +26,7 @@ class CarDetails(LoginRequiredMixin, DetailView):
     login_url = '/accounts/login/'
     redirect_field_name = 'redirect'
 
+
 # AddNewCar class
 class AddNewCar(LoginRequiredMixin, CreateView):
     model = Car
